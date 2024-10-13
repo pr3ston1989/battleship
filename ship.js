@@ -6,7 +6,7 @@ class Ship {
     }
 
     hit() {
-        this.hits++
+        this.hits = this.hits < this.length ? this.hits + 1 : this.hits
         return this.hits
     }
 
