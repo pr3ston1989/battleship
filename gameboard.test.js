@@ -22,4 +22,17 @@ test('check if attack is working', () => {
     gameboard.placeShip(2, 'horizontal', 1, 1)
     expect(gameboard.receiveAttack(1, 1)).toBeInstanceOf(Ship)
     expect(gameboard.receiveAttack(2, 1).hits).toBe(2)
+    expect(gameboard.receiveAttack(11, 12)).toBeUndefined()
+})
+
+test('checking sunk status', () => {
+    const gameboard = new Gameboard()
+    gameboard.placeShip(2, 'horizontal', 1, 1)
+    gameboard.placeShip(4, 'vertical', 3, 3)
+    gameboard.placeShip(1, 'horizontal', 7, 8)
+    expect(gameboard.isAllSunk()).toBe(false)
+    gameboard.ships[0].hits = 2
+    gameboard.ships[1].hits = 4
+    gameboard.ships[2].hits = 1
+    expect(gameboard.isAllSunk()).toBe(true)
 })

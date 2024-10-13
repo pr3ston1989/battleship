@@ -4,6 +4,7 @@ class Gameboard {
     constructor(size = 10) {
         this.size = size
         this.board = this.createBoard()
+        this.ships = []
     }
 
     createBoard() {
@@ -30,6 +31,7 @@ class Gameboard {
                 }
             }
         }
+        this.ships.push(ship)
         return this.board
     }
 
@@ -72,16 +74,21 @@ class Gameboard {
         return flag
     }
 
+    isAllSunk() {
+        const isShipSunk = (currentShip) => currentShip.isSunk() === true
+        return this.ships.every(isShipSunk)
+    }
+
     receiveAttack(x, y) {
-        let shot = this.board[x][y]
         if ((x > 0 && x < this.size) && (y > 0 && y < this.size)) {
+            let shot = this.board[x][y]
             if (shot === null) {
                 shot = 'x'
             } else {
                 shot.hit()
             }
+            return shot
         }
-        return shot
     }
 }
 
